@@ -13,7 +13,7 @@ jobs:
       - run: docker login -u=$QUAY_USER -p=$QUAY_PASS quay.io
       - run:
           name: Grab compose files
-          command: git clone git@github.com:influxdata/monitor-ci.git
+          command: git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
           command: cp ./monitor-ci/env.testing ./monitor-ci/.env
@@ -46,7 +46,7 @@ jobs:
       - run: docker login -u=$QUAY_USER -p=$QUAY_PASS quay.io
       - run:
           name: Grab compose files
-          command: git clone git@github.com:influxdata/monitor-ci.git
+          command: git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
           command: cp ./monitor-ci/env.testing.oss ./monitor-ci/.env
@@ -78,7 +78,7 @@ jobs:
       - run: docker login -u=$QUAY_USER -p=$QUAY_PASS quay.io
       - run:
           name: Grab compose files
-          command: git clone git@github.com:influxdata/monitor-ci.git
+          command: git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Build the ui docker image
           command: |
@@ -112,7 +112,7 @@ jobs:
       - run: docker login -u=$QUAY_USER -p=$QUAY_PASS quay.io
       - run:
           name: Grab deploy files
-          command: git clone git@github.com:influxdata/monitor-ci.git
+          command: git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Load the prod image
           command: |
@@ -167,7 +167,7 @@ jobs:
       - run:
           name: Grab compose files
           command: |
-            git clone git@github.com:influxdata/monitor-ci.git
+            git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
           command: cp ./monitor-ci/env.testing.cloud ./monitor-ci/.env
@@ -208,7 +208,7 @@ jobs:
       - run: docker login -u=$QUAY_USER -p=$QUAY_PASS quay.io
       - run:
           name: Grab compose files
-          command: git clone git@github.com:influxdata/monitor-ci.git
+          command: git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
           command: cp ./monitor-ci/env.testing.oss ./monitor-ci/.env
@@ -250,7 +250,7 @@ jobs:
       - run:
           name: Grab compose files
           command: |
-            git clone git@github.com:influxdata/monitor-ci.git
+            git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
           command: cp ./monitor-ci/env.testing.cloud ./monitor-ci/.env
@@ -291,7 +291,7 @@ jobs:
       - run:
           name: Grab compose files
           command: |
-            git clone git@github.com:influxdata/monitor-ci.git
+            git clone --branch deniz-slim-cypress-image git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
           command: cp ./monitor-ci/env.testing.cloud ./monitor-ci/.env
@@ -327,13 +327,13 @@ jobs:
       - restore_cache:
           keys:
             - 'yarn-cached-packages-{{ checksum "yarn.lock" }}'
-          name: 'Restore Yarn Package Cache'
+          name: "Restore Yarn Package Cache"
       - run:
           command: |
             set +e
             npx yarn install
             npx yarn prettier
-          name: 'Install Dependencies'
+          name: "Install Dependencies"
       - run: yarn generate
       - run:
           name: parallel jest tests
@@ -348,7 +348,7 @@ jobs:
           destination: raw-test-output
       - save_cache:
           key: 'yarn-cached-packages-{{ checksum "yarn.lock" }}'
-          name: 'Save Yarn Package Cache'
+          name: "Save Yarn Package Cache"
           paths:
             - ~/.cache/yarn
   lint:
@@ -361,12 +361,12 @@ jobs:
       - restore_cache:
           keys:
             - 'yarn-cached-packages-{{ checksum "yarn.lock" }}'
-          name: 'Restore Yarn Package Cache'
+          name: "Restore Yarn Package Cache"
       - run:
           command: |
             set +e
             yarn install
-          name: 'Install Dependencies'
+          name: "Install Dependencies"
       - run: yarn generate
       - run:
           name: parallel eslint
@@ -376,7 +376,7 @@ jobs:
             yarn eslint:circleci $TESTFILES
       - save_cache:
           key: 'yarn-cached-packages-{{ checksum "yarn.lock" }}'
-          name: 'Save Yarn Package Cache'
+          name: "Save Yarn Package Cache"
           paths:
             - ~/.cache/yarn
 
