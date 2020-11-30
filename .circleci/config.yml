@@ -398,6 +398,11 @@ jobs:
             docker load < ~/docker-cache/image.tar
             docker tag quay.io/influxdb/ui-acceptance:${CIRCLE_SHA1} quay.io/influxdb/ui-acceptance:latest
       - run:
+          name: Install packages
+          command: |
+            cd ./ui
+            yarn
+      - run:
           name: Start the cluster
           command: cd ./monitor-ci; make start
       - run:
