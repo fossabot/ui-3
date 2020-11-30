@@ -9,14 +9,15 @@ const fs = require('fs');
 
 const args = require('minimist')(process.argv.slice(2));
 
-if (!args.username || !args.password) {
-    return
+if (!args.username || !args.password || !args.port) {
+    console.log('Usage: node login.js --username USERNAME --password PASSWORD --port PORT');
+    return;
 }
 
 (async() => {
 
-    const loginURL = 'http://kubernetes.docker.internal:8448';
-    const logoutURL = 'http://kubernetes.docker.internal:8448/logout';
+    const loginURL = `http://kubernetes.docker.internal:${args.port}`;
+    const logoutURL = `http://kubernetes.docker.internal:${args.port}/logout`;
 
     const opts = {
         //chromeFlags: ['--headless'],
