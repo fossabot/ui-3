@@ -7,6 +7,13 @@ const request = require('request');
 const util = require('util');
 const fs = require('fs');
 
+fs.readFile('/etc/hosts', 'utf8', function (err,data) {
+  if (err) {
+    return console.log(err);
+  }
+  console.log('/ETC/HOSTSSSSSSS', data, "---------------------------------");
+});
+
 const args = require('minimist')(process.argv.slice(2));
 
 if (!args.username || !args.password || !args.port) {
