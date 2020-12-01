@@ -410,6 +410,7 @@ jobs:
           command: |
             grep -qxF '0.0.0.0 ingress' /etc/hosts || echo '0.0.0.0 ingress' >> sudo /etc/hosts;
             grep -qxF '0.0.0.0 kubernetes.docker.internal' /etc/hosts || echo '0.0.0.0 kubernetes.docker.internal' >> sudo /etc/hosts;
+            cat /etc/hosts;
       - run:
           name: Run lighthouse
           no_output_timeout: 10m
