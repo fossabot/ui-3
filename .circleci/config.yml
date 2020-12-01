@@ -390,7 +390,10 @@ jobs:
           command: git clone git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
-          command: cp ./monitor-ci/env.testing ./monitor-ci/.env
+          command: |
+            cp ./monitor-ci/env.testing ./monitor-ci/.env;
+            sed -i -e 's/INGRESS_HOST=.*/INGRESS_HOST=kubernetes.docker.internal/g' ./monitor-ci/.env;
+            cat ./monitor-ci/.env;
       - run:
           name: Update the images we're using
           command: |
