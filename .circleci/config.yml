@@ -423,7 +423,8 @@ jobs:
             DEX_USERNAME=$(cat ./monitor-ci/.env | grep DEFAULT_USER= | cut -d '=' -f2);
             DEX_PASSWORD=$(cat ./monitor-ci/.env | grep DEFAULT_PASSWORD= | cut -d '=' -f2);
             DEX_PORT_HTTPS=$(cat ./monitor-ci/.env | grep PORT_HTTPS= | cut -d '=' -f2);
-            node ./ui/lighthouse/login.js --username $DEX_USERNAME --password $DEX_PASSWORD --port $DEX_PORT_HTTPS
+            DEX_INGRESS_HOST=$(cat ./monitor-ci/.env | grep INGRESS_HOST= | cut -d '=' -f2);
+            node ./ui/lighthouse/login.js --username $DEX_USERNAME --password $DEX_PASSWORD --port $DEX_PORT_HTTPS --host $DEX_INGRESS_HOST
       - store_artifacts:
           path: ui/lighthouse-artifacts/results
 workflows:

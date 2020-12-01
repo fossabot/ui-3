@@ -16,13 +16,13 @@ fs.readFile('/etc/hosts', 'utf8', function (err,data) {
 
 const args = require('minimist')(process.argv.slice(2));
 
-if (!args.username || !args.password || !args.port) {
-    console.log('Usage: node login.js --username USERNAME --password PASSWORD --port PORT');
+if (!args.username || !args.password || !args.port || !args.host) {
+    console.log('Usage: node login.js --username USERNAME --password PASSWORD --port PORT --host HOST');
     return;
 }
 
 (async() => {
-    const baseURL = `http://ingress`;
+    const baseURL = `http://${args.host}`;
     let loginURL = baseURL;
     let logoutURL = `${baseURL}/logout`;
 
