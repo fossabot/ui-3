@@ -409,7 +409,9 @@ jobs:
           name: Add ingress entry to /etc/hosts
           command: |
             grep -qxF '0.0.0.0 ingress' /etc/hosts || sudo -- sh -c "echo '0.0.0.0 ingress' >> /etc/hosts";
+            grep -qxF '127.0.0.1 ingress' /etc/hosts || sudo -- sh -c "echo '127.0.0.1 ingress' >> /etc/hosts";
             grep -qxF '0.0.0.0 kubernetes.docker.internal' /etc/hosts || sudo -- sh -c "echo '0.0.0.0 kubernetes.docker.internal' >> /etc/hosts";
+            grep -qxF '127.0.0.1 kubernetes.docker.internal' /etc/hosts || sudo -- sh -c "echo '127.0.0.1 kubernetes.docker.internal' >> /etc/hosts";
             cat /etc/hosts;
       - run:
           name: Run lighthouse
