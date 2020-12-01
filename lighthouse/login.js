@@ -15,12 +15,13 @@ if (!args.username || !args.password || !args.port) {
 }
 
 (async() => {
-    let loginURL = `http://kubernetes.docker.internal`;
-    let logoutURL = `http://kubernetes.docker.internal/logout`;
+    const baseURL = `http://ingress`;
+    let loginURL = baseURL;
+    let logoutURL = `${baseURL}/logout`;
 
     if (args.port !== 80) {
-        loginURL = `http://kubernetes.docker.internal:${args.port}`;
-        logoutURL = `http://kubernetes.docker.internal:${args.port}/logout`;
+        loginURL = `${baseURL}:${args.port}`;
+        logoutURL = `${baseURL}:${args.port}/logout`;
     }
 
     const opts = {
