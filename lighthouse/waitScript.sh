@@ -1,6 +1,6 @@
 #!/bin/bash
-HOST='kubernetes.docker.internal';
-PORT=8448;
+HOST="$1";
+PORT=$2;
 
 # Sleep Time In Seconds
 SLEEP_TIME=15;
