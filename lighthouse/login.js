@@ -15,7 +15,7 @@ if (!args.username || !args.password || !args.port) {
 }
 
 (async() => {
-    const baseURL = `http://ingress`;
+    const baseURL = `http://172.16.238.100`;
     let loginURL = baseURL;
     let logoutURL = `${baseURL}/logout`;
 
