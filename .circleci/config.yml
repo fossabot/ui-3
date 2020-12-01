@@ -408,8 +408,8 @@ jobs:
       - run:
           name: Add ingress entry to /etc/hosts
           command: |
-            grep -qxF '0.0.0.0 ingress' /etc/hosts || sudo -- sh -c "echo '0.0.0.0 ingress' >> sudo /etc/hosts";
-            grep -qxF '0.0.0.0 kubernetes.docker.internal' /etc/hosts || sudo -- sh -c "echo '0.0.0.0 kubernetes.docker.internal' >> sudo /etc/hosts";
+            grep -qxF '0.0.0.0 ingress' /etc/hosts || sudo -- sh -c "echo '0.0.0.0 ingress' >> /etc/hosts";
+            grep -qxF '0.0.0.0 kubernetes.docker.internal' /etc/hosts || sudo -- sh -c "echo '0.0.0.0 kubernetes.docker.internal' >> /etc/hosts";
             cat /etc/hosts;
       - run:
           name: Run lighthouse
