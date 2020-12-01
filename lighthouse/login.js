@@ -48,6 +48,7 @@ if (!args.username || !args.password || !args.port) {
     const page = (await browser.pages())[0];
     await page.setViewport({ width: 1200, height: 900});
     await page.goto(loginURL, {waitUntil: 'networkidle0'}).catch(async e => {
+        console.log(e);
         await browser.disconnect();
         await chrome.kill();
 
