@@ -4,7 +4,7 @@ PORT=$2;
 
 # Sleep Time In Seconds
 SLEEP_TIME=15;
-MAX_EXECUTION_TIME=300;
+MAX_EXECUTION_TIME=420;
 
 SEARCH_STRING="Connected to $HOST."
 
