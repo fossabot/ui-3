@@ -393,6 +393,7 @@ jobs:
           command: |
             cp ./monitor-ci/env.testing ./monitor-ci/.env;
             sed -i -e 's/INGRESS_HOST=.*/INGRESS_HOST=kubernetes.docker.internal/g' ./monitor-ci/.env;
+            sed -i -e 's/PORT_HTTPS=.*/PORT_HTTPS=8443/g' ./monitor-ci/.env;
             cat ./monitor-ci/.env;
       - run:
           name: Update the images we're using
