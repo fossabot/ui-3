@@ -16,11 +16,7 @@ jobs:
           command: git clone git@github.com:influxdata/monitor-ci.git
       - run:
           name: Copy over the testing variables
-          command: |
-            cp ./monitor-ci/env.testing ./monitor-ci/.env;
-            sed -i -e 's/INGRESS_HOST=.*/INGRESS_HOST=kubernetes.docker.internal/g' ./monitor-ci/.env;
-            sed -i -e 's/PORT_HTTPS=.*/PORT_HTTPS=8443/g' ./monitor-ci/.env;
-            cat ./monitor-ci/.env;
+          command: cp ./monitor-ci/env.testing ./monitor-ci/.env;
       - run:
           name: Build the ui docker image
           command: |
@@ -397,7 +393,7 @@ jobs:
           command: |
             cp ./monitor-ci/env.testing ./monitor-ci/.env;
             sed -i -e 's/INGRESS_HOST=.*/INGRESS_HOST=kubernetes.docker.internal/g' ./monitor-ci/.env;
-            sed -i -e 's/PORT_HTTPS=.*/PORT_HTTPS=8443/g' ./monitor-ci/.env;
+            sed -i -e 's/DEV_MODE_CYPRESS=1/DEV_MODE_CYPRESS=0/g' ./monitor-ci/.env;
             cat ./monitor-ci/.env;
       - run:
           name: Update the images we're using
