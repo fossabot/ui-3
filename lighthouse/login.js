@@ -43,7 +43,13 @@ const waitForAPI = async (url) => {
 
                 // The whole response has been received. Print out the result.
                 resp.on('end', () => {
-                    const result = JSON.parse(data);
+                    let result = null;
+                    try {
+                        result = JSON.parse(data);
+                    } catch (e) {
+                        return;
+                    }
+
                     if (result.authorizations !== undefined) {
                         shouldRun = false;
                         return result;
@@ -65,6 +71,8 @@ const waitForAPI = async (url) => {
 (async() => {
     await waitForAPI(`http://${args.host}:${args.port}/api/v2`);
 })();
+
+return;
 
 (async() => {
     const baseURL = `http://${args.host}`;
