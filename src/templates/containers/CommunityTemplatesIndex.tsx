@@ -182,22 +182,7 @@ class UnconnectedCommunityTemplatesIndex extends Component<Props, State> {
                 </Panel.Body>
               </Panel>
             </FlexBox>
-
-            <GetResources
-              resources={[
-                ResourceType.Buckets,
-                ResourceType.Checks,
-                ResourceType.Dashboards,
-                ResourceType.Labels,
-                ResourceType.NotificationEndpoints,
-                ResourceType.NotificationRules,
-                ResourceType.Tasks,
-                ResourceType.Telegrafs,
-                ResourceType.Variables,
-              ]}
-            >
-              <CommunityTemplatesInstalledList orgID={org.id} />
-            </GetResources>
+            <CommunityTemplatesInstalledList orgID={org.id} />
           </SettingsTabbedPage>
         </Page>
         <Switch>
