@@ -44,18 +44,18 @@ const waitForAPI = async (url) => {
                 // The whole response has been received. Print out the result.
                 resp.on('end', () => {
                     let result = null;
+                    console.log('Data::::::::::::: ', data);
                     try {
                         result = JSON.parse(data);
                     } catch (e) {
+                        console.log(data);
                         return;
                     }
 
                     if (result.authorizations !== undefined) {
                         shouldRun = false;
-                        return result;
+                        return;
                     }
-                    console.log(result);
-
                 });    
             }).on("error", async (err) => {
                 console.log("Error: " + err);
@@ -113,7 +113,7 @@ const waitForAPI = async (url) => {
 
         return void(0);
     });
-    console.log(page.url(), await page.content());
+    console.log(page.url());
 
     // await page.waitForNavigation({ waitUntil: 'networkidle0' });
     await page.waitForSelector('#login', {
@@ -126,10 +126,10 @@ const waitForAPI = async (url) => {
     });
 
     await page.waitForNavigation({ waitUntil: 'networkidle2' });
-    console.log(page.url(), await page.content());
+    console.log(page.url());
     await page.click('body > div.dex-container > div > div:nth-child(5) > div:nth-child(1) > form > button');
     await page.waitForNavigation({waitUntil: 'networkidle2'});
-    console.log(page.url(), await page.content());
+    console.log(page.url());
     await page.waitForSelector('#cf-app-wrapper', {
         visible: true,
         });
