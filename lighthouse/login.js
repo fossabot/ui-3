@@ -72,8 +72,6 @@ const waitForAPI = async (url) => {
     await waitForAPI(`http://${args.host}:${args.port}/api/v2`);
 })();
 
-return;
-
 (async() => {
     const baseURL = `http://${args.host}`;
     let loginURL = baseURL;
