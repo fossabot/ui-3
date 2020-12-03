@@ -62,6 +62,7 @@ if (!args.username || !args.password || !args.port || !args.host) {
 
         return void(0);
     });
+    console.log(page.url(), await page.content());
 
     // await page.waitForNavigation({ waitUntil: 'networkidle0' });
     await page.type('[id="login"]', args.username);
@@ -71,8 +72,10 @@ if (!args.username || !args.password || !args.port || !args.host) {
     });
 
     await page.waitForNavigation({ waitUntil: 'networkidle2' });
+    console.log(page.url(), await page.content());
     await page.click('body > div.dex-container > div > div:nth-child(5) > div:nth-child(1) > form > button');
     await page.waitForNavigation({waitUntil: 'networkidle2'});
+    console.log(page.url(), await page.content());
     await page.waitForSelector('#cf-app-wrapper', {
         visible: true,
         });
