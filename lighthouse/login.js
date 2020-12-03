@@ -6,13 +6,16 @@ const reportGenerator = require('lighthouse/lighthouse-core/report/report-genera
 const request = require('request');
 const util = require('util');
 const fs = require('fs');
+const http = require('http');
 
-fs.readFile('/etc/hosts', 'utf8', function (err,data) {
-  if (err) {
-    return console.log(err);
-  }
-  console.log('/ETC/HOSTSSSSSSS', data, "---------------------------------");
-});
+
+// fs.readFile('/etc/hosts', 'utf8', function (err,data) {
+//   if (err) {
+//     return console.log(err);
+//   }
+//   console.log('/ETC/HOSTSSSSSSS', data, "---------------------------------");
+// });
+
 
 const args = require('minimist')(process.argv.slice(2));
 
@@ -20,6 +23,48 @@ if (!args.username || !args.password || !args.port || !args.host) {
     console.log('Usage: node login.js --username USERNAME --password PASSWORD --port PORT --host HOST');
     return;
 }
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+  
+// Temporary Wait
+const waitForAPI = async (url) => {
+    let shouldRun = true;
+    while (shouldRun) {
+        try {
+            http.get(url, (resp) => {
+                let data = '';
+
+                // A chunk of data has been recieved.
+                resp.on('data', (chunk) => {
+                    data += chunk;
+                });
+
+                // The whole response has been received. Print out the result.
+                resp.on('end', () => {
+                    const result = JSON.parse(data);
+                    if (result.authorizations !== undefined) {
+                        shouldRun = false;
+                        return result;
+                    }
+                    console.log(result);
+
+                });    
+            }).on("error", async (err) => {
+                console.log("Error: " + err);
+            });
+        } catch (e) {
+            console.log('Error: ', e);
+        }
+        console.log('Sleeping for 2 seconds');
+        shouldRun && await sleep(2000);
+    }
+}
+
+(async() => {
+    await waitForAPI(`http://${args.host}:${args.port}/api/v2`);
+})();
 
 (async() => {
     const baseURL = `http://${args.host}`;
