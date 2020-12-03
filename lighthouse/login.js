@@ -65,6 +65,9 @@ if (!args.username || !args.password || !args.port || !args.host) {
     console.log(page.url(), await page.content());
 
     // await page.waitForNavigation({ waitUntil: 'networkidle0' });
+    await page.waitForSelector('#login', {
+        visible: true,
+    });
     await page.type('[id="login"]', args.username);
     await page.type('[id="password"]', args.password);
     await page.evaluate(() => {
