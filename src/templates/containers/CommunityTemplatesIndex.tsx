@@ -224,11 +224,12 @@ class UnconnectedCommunityTemplatesIndex extends Component<Props, State> {
   }
 
   private startTemplateInstall = () => {
+    console.log(this.props.stagedTemplateUrl)
     if (!this.props.stagedTemplateUrl) {
       this.props.notify(communityTemplateUnsupportedFormatError())
       return false
     }
-
+    
     try {
       event('template_click_lookup', {
         templateName: getTemplateNameFromUrl(this.props.stagedTemplateUrl).name,
