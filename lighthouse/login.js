@@ -24,13 +24,15 @@ if (!args.username || !args.password || !args.port || !args.host) {
     return;
 }
 
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
+function sleep(seconds) {
+    return new Promise(resolve => setTimeout(resolve, seconds * 1000));
 }
   
 // Temporary Wait
 const waitForAPI = async (url) => {
     let shouldRun = true;
+    const SECONDS = 30;
+
     while (shouldRun) {
         try {
             http.get(url, (resp) => {
@@ -63,8 +65,8 @@ const waitForAPI = async (url) => {
         } catch (e) {
             console.log('Error: ', e);
         }
-        console.log('Sleeping for 2 seconds');
-        shouldRun && await sleep(2000);
+        console.log(`Sleeping for ${SECONDS} seconds`);
+        shouldRun && await sleep(SECONDS);
     }
 }
 
@@ -106,6 +108,7 @@ const waitForAPI = async (url) => {
     //Puppeteer
     const page = (await browser.pages())[0];
     await page.setViewport({ width: 1200, height: 900});
+    console.log('Hitting URL: ', loginURL);
     await page.goto(loginURL, {waitUntil: 'networkidle0'}).catch(async e => {
         console.log(e);
         await browser.disconnect();
@@ -113,11 +116,14 @@ const waitForAPI = async (url) => {
 
         return void(0);
     });
-    console.log(page.url());
+
+    console.log("On Page: ", page.url());
 
     // await page.waitForNavigation({ waitUntil: 'networkidle0' });
     await page.waitForSelector('#login', {
         visible: true,
+    }).catch(async e => {
+        console.log('Login Selector ID error: ');
     });
     await page.type('[id="login"]', args.username);
     await page.type('[id="password"]', args.password);
